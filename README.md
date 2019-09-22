@@ -43,6 +43,7 @@ export PANTS_STATIC_ROOT="/var/static"
 
 # Set other Rocket variables if you're interested
 export ROCKET_PORT=8765
+export ROCKET_ADDRESS=0.0.0.0
 
 # Let's go!
 cargo run
