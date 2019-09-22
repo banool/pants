@@ -13,7 +13,12 @@ mod index;
 use std::env;
 use std::fs::File;
 
-const REQUIRED_ENV_VARS: &'static [&'static str] = &["PANTS_PAGES_ROOT", "PANTS_SITE"];
+const REQUIRED_ENV_VARS: &'static [&'static str] = &[
+    "PANTS_PAGES_ROOT",
+    "PANTS_SITE",
+    "PANTS_CONSUMER_KEY",
+    "PANTS_ACCESS_TOKEN",
+];
 
 fn main() {
     for s in REQUIRED_ENV_VARS.iter() {

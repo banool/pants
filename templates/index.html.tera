@@ -10,7 +10,7 @@
         <input type="submit" value="Submit">
     </form> 
     {% if added %}
-        <p>Created and added {{ added }} to Pocket successfully</p>
+        <p>Created and added <a href={{ added }}>{{ added }}</a> to Pocket successfully</p>
     {% endif %}
 {% endblock content %}
 
