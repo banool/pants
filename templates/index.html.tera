@@ -1,0 +1,6 @@
+{% extends "base" %}
+
+{% block content %}
+    <h1>Pants</h1>
+{% endblock content %}
+
