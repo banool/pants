@@ -29,19 +29,26 @@ pub fn add(form: Form<PocketAddForm>) -> Flash<Redirect> {
         .collect();
     let url = format!("{}/pages/{}.html", &env::var("PANTS_SITE").unwrap(), title);
 
-    create_page_file(&title);
-    add_to_pocket(&form.title, &url, &form.tags);
+    match create_page_file(&title) {
+        Err(e) => return Flash::error(Redirect::to("/"), format!("Couldn't make file: {}", e)),
+        Ok(()) => {}
+    }
+    match add_to_pocket(&form.title, &url, &form.tags) {
+        Err(e) => return Flash::error(Redirect::to("/"), format!("Couldn't add to pocket: {}", e)),
+        Ok(()) => {}
+    }
 
     Flash::success(Redirect::to("/"), url)
 }
 
-fn create_page_file(title: &str) -> String {
+fn create_page_file(title: &str) -> std::io::Result<()> {
     // Creates a file, returns the path of the file it made.
     let mut path = PathBuf::new();
     path.push(&env::var("PANTS_PAGES_ROOT").unwrap());
     path.push(title);
-    File::create(path.as_path()).unwrap();
-    path.as_path().display().to_string()
+    println!("Trying to create {}", path.as_path().display().to_string());
+    File::create(path.as_path())?;
+    Ok(())
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -53,7 +60,7 @@ struct PocketPostRequest {
     access_token: String,
 }
 
-fn add_to_pocket(title: &str, url: &str, tags: &str) {
+fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str> {
     let request = PocketPostRequest {
         url: url.to_string(),
         title: title.to_string(),
@@ -67,5 +74,9 @@ fn add_to_pocket(title: &str, url: &str, tags: &str) {
         .json(&request)
         .send()
         .unwrap();
-    println!("{:#?}", response.status());
+    let status = response.status();
+    if status != 200 {
+        return Err("Non-200 status code from Pocket");
+    }
+    Ok(())
 }

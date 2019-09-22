@@ -9,7 +9,9 @@
         <input type="text" name="tags">
         <input type="submit" value="Submit">
     </form> 
-    {% if added %}
+    {% if error %}
+        <p>Something went wrong: {{ error }}</p>
+    {% elif added %}
         <p>Created and added <a href={{ added }}>{{ added }}</a> to Pocket successfully</p>
     {% endif %}
 {% endblock content %}
