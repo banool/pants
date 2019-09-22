@@ -24,12 +24,15 @@ pub fn index(flash: Option<FlashMessage>) -> Template {
                 added = Some(msg);
                 error = None;
             }
-        },
+        }
         None => {
             added = None;
             error = None;
-        },
+        }
     };
-    let context = TemplateContext { added: added, error: error };
+    let context = TemplateContext {
+        added: added,
+        error: error,
+    };
     Template::render("index", &context)
 }

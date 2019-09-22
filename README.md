@@ -31,12 +31,14 @@ This is the token you need to set for the `PANTS_ACCESS_TOKEN` env var below
 ### Running
 ```
 mkdir /var/pages
+cp -r static /var/static
 
 # Set required environment variables
 export PANTS_PAGES_ROOT="/var/pages"  # Relative paths work too.
 export PANTS_SITE="https://example.com"
 export PANTS_CONSUMER_KEY="87796-6b548d766433260a0f9b1b97\"
 export PANTS_ACCESS_TOKEN="d44c7cc9-2434-de18-332c-923ad5"
+export PANTS_STATIC_ROOT="/var/static"
 
 # Set other Rocket variables if you're interested
 export ROCKET_PORT=8765
