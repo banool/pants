@@ -27,7 +27,8 @@ pub fn add(form: Form<PocketAddForm>) -> Flash<Redirect> {
         .chars()
         .filter(|&c| c.is_alphanumeric())
         .collect();
-    let url = format!("{}/pages/{}.html", &env::var("PANTS_SITE").unwrap(), title);
+    let title = format!("{}.html", title);
+    let url = format!("{}/pages/{}", &env::var("PANTS_SITE").unwrap(), title);
 
     match create_page_file(&title) {
         Err(e) => return Flash::error(Redirect::to("/"), format!("Couldn't make file: {}", e)),

@@ -3,6 +3,11 @@ name = "pants"
 version = "0.1.0"
 authors = ["Daniel Porteous <danielporteous1@gmail.com>"]
 edition = "2018"
+license = "MIT"
+description = "A web app to save anything to Pocket"
+readme = "README.md"
+homepage = "https://github.com/dport/pants"
+repository = "https://github.com/dport/pants"
 
 [dependencies]
 rocket = "0.4"

@@ -1,6 +1,6 @@
 # Pants
 
-A simple webapp written with [Rocket](https://rocket.rs) for saving anything to Pocket. It's a lil Pocket Rocket hehehehehehehehh 🚀🚀🚀. See a dev
+A simple webapp written with [Rocket](https://rocket.rs) for saving anything to Pocket. It's a lil Pocket Rocket hehehehehehehehh 🚀🚀🚀.
 
 ## Setup
 ### Get Pocket access token
@@ -30,6 +30,7 @@ This is the token you need to set for the `PANTS_ACCESS_TOKEN` env var below
 
 ### Running
 ```
+# Ideally this maps to something exposed to the web, so the URLs will be valid, but I don't think Pocket really cares.
 mkdir /var/pages
 cp -r static /var/static
 
@@ -42,6 +43,7 @@ export PANTS_STATIC_ROOT="/var/static"
 
 # Set other Rocket variables if you're interested
 export ROCKET_PORT=8765
+export ROCKET_ADDRESS=0.0.0.0
 
 # Let's go!
 cargo run
