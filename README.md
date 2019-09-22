@@ -1,12 +1,12 @@
 # Pants
 
-A simple webapp written with [Rocket](https://rocket.rs) for saving anything to Pocket.
+A simple webapp written with [Rocket](https://rocket.rs) for saving anything to Pocket. It's a lil Pocket Rocket hehehehehehehehh 🚀🚀🚀. See a dev
 
 ## Setup
 ### Get Pocket access token
-First, make an app here: https://getpocket.com/developer/apps/new.
+First, make an app here: https://getpocket.com/developer/apps/new. It should give you a consumer key once you do this.
 
-Now, to get a code for you specifically, do this. Pretend our consumer key is `87796-6bf78d700933260a0f9b1b97`
+Now, to get a code for your Pocket user specifically, do this. Pretend our consumer key is `87796-6bf78d700933260a0f9b1b97`.
 ```
 curl -d "consumer_key=87796-6bf78d700933260a0f9b1b97&redirect_uri=https://google.com" -X POST https://getpocket.com/v3/oauth/request
 ```
@@ -37,6 +37,11 @@ export PANTS_PAGES_ROOT="/var/pages"  # Relative paths work too.
 export PANTS_SITE="https://example.com"
 export PANTS_CONSUMER_KEY="87796-6b548d766433260a0f9b1b97\"
 export PANTS_ACCESS_TOKEN="d44c7cc9-2434-de18-332c-923ad5"
+
+# Set other Rocket variables if you're interested
+export ROCKET_PORT=8765
+
+# Let's go!
 cargo run
 ```
 
@@ -46,4 +51,4 @@ I find myself liking Pocket more and more, and I want to start using it to keep 
 ## The solution
 You can see in [the docs](https://getpocket.com/developer/docs/v3/add) for Pocket's add API that a URL is required, so we need to make one.
 
-Let's say I want to read Big Boi's Bakery, by Big Boi, I can go to this webpage and enter the title (and optionally some tags) and then Pants will go and make a webpage under `/pages`, in this case `/pages/big-bois-bakery`, and then add it to Pocket.
+Let's say I want to read Big Boi's Bakery, by Big Boi, I can go to Pants and enter the title (and optionally some tags) and then Pants will go and make a webpage under `/pages`, in this case `/pages/bigboisbakery`, and then add it to Pocket.
