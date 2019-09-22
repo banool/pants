@@ -7,16 +7,13 @@ extern crate serde_derive;
 
 use rocket_contrib::templates::Template;
 
+mod add;
 mod index;
-
-#[get("/")]
-fn index() -> Template {
-    index::index()
-}
 
 fn main() {
     rocket::ignite()
-        .mount("/", routes![index])
+        .mount("/", routes![index::index])
+        .mount("/", routes![add::add])
         .attach(Template::fairing())
         .launch();
 }

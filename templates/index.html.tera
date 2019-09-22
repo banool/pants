@@ -2,5 +2,12 @@
 
 {% block content %}
     <h1>Pants</h1>
+    <form action="/add" method="post"> 
+        Title:
+        <input type="text" name="title">
+        Tags (comma separated):
+        <input type="text" name="tags">
+        <input type="submit" value="Submit">
+    </form> 
 {% endblock content %}
 

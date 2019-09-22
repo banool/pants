@@ -6,6 +6,7 @@ use rocket_contrib::templates::Template;
 #[derive(Serialize)]
 struct TemplateContext {}
 
+#[get("/")]
 pub fn index() -> Template {
     let context = TemplateContext {};
     Template::render("index", &context)
