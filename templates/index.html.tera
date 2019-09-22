@@ -4,9 +4,9 @@
     <h1>Pants</h1>
     <form action="/add" method="post"> 
         Title:
-        <input type="text" name="title" required>
+        <input type="text" name="title" required><br>
         Tags (comma separated):
-        <input type="text" name="tags">
+        <input type="text" name="tags"><br>
         <input type="submit" value="Submit">
     </form> 
     {% if error %}
