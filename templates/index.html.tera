@@ -6,7 +6,7 @@
         Title:
         <input type="text" name="title" required><br>
         Tags (comma separated):
-        <input type="text" name="tags"><br>
+        <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" name="tags" placeholder="pants"><br>
         <input type="submit" value="Submit">
     </form> 
     {% if error %}
