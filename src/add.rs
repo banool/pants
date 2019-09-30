@@ -79,5 +79,6 @@ fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str>
     if status != 200 {
         return Err("Non-200 status code from Pocket");
     }
+    println!("Successfully added {} to pocket", title);
     Ok(())
 }
