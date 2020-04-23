@@ -8,5 +8,5 @@ RUN rustup default nightly
 
 RUN cargo install --path .
 
-CMD cargo run
+CMD cargo run --release
 
