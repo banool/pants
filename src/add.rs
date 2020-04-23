@@ -77,6 +77,7 @@ fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str>
         .unwrap();
     let status = response.status();
     if status != 200 {
+        eprintln!("Non-200 status code from Pocket: {:#?}", response); 
         return Err("Non-200 status code from Pocket");
     }
     println!("Successfully added {} to pocket", title);
