@@ -43,7 +43,7 @@ pub fn add(form: Form<PocketAddForm>) -> Flash<Redirect> {
 }
 
 fn create_page_file(title: &str) -> std::io::Result<()> {
-    // Creates a file, returns the path of the file it made.
+    // Creates a file.
     let mut path = PathBuf::new();
     path.push(&env::var("PANTS_PAGES_ROOT").unwrap());
     path.push(title);
@@ -69,15 +69,16 @@ fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str>
         consumer_key: env::var("PANTS_CONSUMER_KEY").unwrap(),
         access_token: env::var("PANTS_ACCESS_TOKEN").unwrap(),
     };
+    eprintln!("Request: {:#?}", request);
     let client = reqwest::Client::new();
     let response = client
         .post("https://getpocket.com/v3/add")
         .json(&request)
         .send()
         .unwrap();
+    eprintln!("Response from Pocket: {:#?}", response);
     let status = response.status();
     if status != 200 {
-        eprintln!("Non-200 status code from Pocket: {:#?}", response); 
         return Err("Non-200 status code from Pocket");
     }
     println!("Successfully added {} to pocket", title);
