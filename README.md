@@ -49,6 +49,12 @@ export ROCKET_ADDRESS=0.0.0.0
 cargo run
 ```
 
+## To publish
+```
+# Change the version in Cargo.toml
+cargo publish
+```
+
 ## The problem
 I find myself liking Pocket more and more, and I want to start using it to keep track of everything I want to read and have read. Unfortunately, not everything I want to read really fits Pocket's reading model, even if the tracking model is great. It doesn't really make sense to save The Hobbit to Pocket for example since there is no dedicated webpage containing that content.
 

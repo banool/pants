@@ -923,7 +923,7 @@ dependencies = [
 
 [[package]]
 name = "pants"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "reqwest 0.9.20 (registry+https://github.com/rust-lang/crates.io-index)",
  "rocket 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
