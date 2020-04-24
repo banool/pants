@@ -1,4 +1,4 @@
-FROM rust:1.43
+FROM rust:1.43 as build
 
 WORKDIR /app
 
@@ -6,7 +6,12 @@ COPY . .
 
 RUN rustup default nightly
 
-RUN cargo install --path .
+RUN cargo build --release
 
-CMD cargo run --release
+FROM alpine:latest
 
+WORKDIR /app
+
+COPY --from=build /app/target/release/pants /app/pants
+
+CMD ["pants"]
