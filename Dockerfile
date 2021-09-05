@@ -19,7 +19,9 @@ RUN strip target/release/pants
 FROM alpine:3.14
 
 # Copy in the binary from the previous build stage.
+COPY --from=build /build/static static
+COPY --from=build /build/templates templates
 COPY --from=build /build/target/release/pants .
 
 # Run it.
-CMD ["/pants"]
+ENTRYPOINT ["/pants"]
