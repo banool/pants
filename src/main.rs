@@ -23,6 +23,7 @@ const REQUIRED_ENV_VARS: &'static [&'static str] = &[
 ];
 
 fn main() {
+    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
     for s in REQUIRED_ENV_VARS.iter() {
         if env::var(s).is_err() {
             panic!("This env var must be set: {}", s);

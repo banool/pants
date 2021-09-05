@@ -4,6 +4,7 @@ extern crate serde_json;
 use reqwest::blocking::Client as ReqwestClient;
 use rocket::request::{Form, FromForm};
 use rocket::response::{Flash, Redirect};
+use log::info;
 use std::env;
 use std::fs::File;
 use std::path::PathBuf;
@@ -48,7 +49,7 @@ fn create_page_file(title: &str) -> std::io::Result<()> {
     let mut path = PathBuf::new();
     path.push(&env::var("PANTS_PAGES_ROOT").unwrap());
     path.push(title);
-    println!("Trying to create {}", path.as_path().display().to_string());
+    info!("Trying to create {}", path.as_path().display().to_string());
     File::create(path.as_path())?;
     Ok(())
 }
@@ -70,18 +71,18 @@ fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str>
         consumer_key: env::var("PANTS_CONSUMER_KEY").unwrap(),
         access_token: env::var("PANTS_ACCESS_TOKEN").unwrap(),
     };
-    eprintln!("Request: {:#?}", request);
+    info!("Request: {:#?}", request);
     let client = ReqwestClient::new();
     let response = client
         .post("https://getpocket.com/v3/add")
         .json(&request)
         .send()
         .unwrap();
-    eprintln!("Response from Pocket: {:#?}", response);
+    info!("Response from Pocket: {:#?}", response);
     let status = response.status();
     if status != 200 {
         return Err("Non-200 status code from Pocket");
     }
-    println!("Successfully added {} to pocket", title);
+    info!("Successfully added {} to pocket", title);
     Ok(())
 }
