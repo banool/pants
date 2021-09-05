@@ -10,15 +10,15 @@ homepage = "https://github.com/dport/pants"
 repository = "https://github.com/dport/pants"
 
 [dependencies]
-rocket = "0.4"
-tera = "0.11"
-reqwest = "0.9"
-serde = "1.0"
-serde_json = "1.0"
-serde_derive = "1.0"
-structopt = "0.3"
+rocket = "0.4.10"
+tera = "1.12.1"
+reqwest = { version = "0.11.4", features = ["blocking", "json"] }
+serde = "1.0.130"
+serde_json = "1.0.67"
+serde_derive = "1.0.130"
+structopt = "0.3.23"
 
 [dependencies.rocket_contrib]
-version = "0.4"
+version = "0.4.10"
 default-features = false
 features = ["tera_templates", "serve"]

@@ -1,6 +1,7 @@
 extern crate rocket_contrib;
 extern crate serde_json;
 
+use reqwest::blocking::Client as ReqwestClient;
 use rocket::request::{Form, FromForm};
 use rocket::response::{Flash, Redirect};
 use std::env;
@@ -70,7 +71,7 @@ fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str>
         access_token: env::var("PANTS_ACCESS_TOKEN").unwrap(),
     };
     eprintln!("Request: {:#?}", request);
-    let client = reqwest::Client::new();
+    let client = ReqwestClient::new();
     let response = client
         .post("https://getpocket.com/v3/add")
         .json(&request)

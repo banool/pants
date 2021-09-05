@@ -25,7 +25,7 @@ const REQUIRED_ENV_VARS: &'static [&'static str] = &[
 fn main() {
     for s in REQUIRED_ENV_VARS.iter() {
         if env::var(s).is_err() {
-            panic!(format!("This env var must be set: {}", s));
+            panic!("This env var must be set: {}", s);
         }
     }
     let pages_root = &env::var("PANTS_PAGES_ROOT").unwrap();
