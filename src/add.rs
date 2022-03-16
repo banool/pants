@@ -1,10 +1,9 @@
-extern crate rocket_contrib;
 extern crate serde_json;
 
+use log::{error, info};
 use reqwest::blocking::Client as ReqwestClient;
-use rocket::request::{Form, FromForm};
+use rocket::form::{Form, FromForm};
 use rocket::response::{Flash, Redirect};
-use log::info;
 use std::env;
 use std::fs::File;
 use std::path::PathBuf;
@@ -33,11 +32,19 @@ pub fn add(form: Form<PocketAddForm>) -> Flash<Redirect> {
     let url = format!("{}/pages/{}", &env::var("PANTS_SITE").unwrap(), title);
 
     match create_page_file(&title) {
-        Err(e) => return Flash::error(Redirect::to("/"), format!("Couldn't make file: {}", e)),
+        Err(e) => {
+            let s = format!("Could not make file: {}", e);
+            error!("{}", s);
+            return Flash::error(Redirect::to("/"), s);
+        }
         Ok(()) => {}
     }
     match add_to_pocket(&form.title, &url, &form.tags) {
-        Err(e) => return Flash::error(Redirect::to("/"), format!("Couldn't add to pocket: {}", e)),
+        Err(e) => {
+            let s = format!("Could not add to pocket: {}", e);
+            error!("{}", s);
+            return Flash::error(Redirect::to("/"), s);
+        }
         Ok(()) => {}
     }
 

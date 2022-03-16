@@ -1,8 +1,7 @@
-extern crate rocket_contrib;
 extern crate serde_json;
 
 use rocket::request::FlashMessage;
-use rocket_contrib::templates::Template;
+use rocket_dyn_templates::Template;
 
 #[derive(Serialize)]
 struct TemplateContext {
@@ -16,8 +15,8 @@ pub fn index(flash: Option<FlashMessage>) -> Template {
     let error: Option<String>;
     match flash {
         Some(flash) => {
-            let msg = flash.msg().to_string();
-            if flash.name() == "error" {
+            let msg = flash.message().to_string();
+            if flash.kind() == "error" {
                 error = Some(msg);
                 added = None;
             } else {

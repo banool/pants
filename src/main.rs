@@ -1,12 +1,10 @@
-#![feature(proc_macro_hygiene, decl_macro)]
-
 #[macro_use]
 extern crate rocket;
 #[macro_use]
 extern crate serde_derive;
 
-use rocket_contrib::serve::StaticFiles;
-use rocket_contrib::templates::Template;
+use rocket::fs::FileServer;
+use rocket_dyn_templates::Template;
 
 mod add;
 mod index;
@@ -22,7 +20,8 @@ const REQUIRED_ENV_VARS: &'static [&'static str] = &[
     "PANTS_STATIC_ROOT",
 ];
 
-fn main() {
+#[launch]
+fn mymain() -> _ {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
     for s in REQUIRED_ENV_VARS.iter() {
         if env::var(s).is_err() {
@@ -32,13 +31,12 @@ fn main() {
     let pages_root = &env::var("PANTS_PAGES_ROOT").unwrap();
     File::open(pages_root).expect(format!("The path \"{}\" doesn't exist", pages_root).as_str());
 
-    rocket::ignite()
+    rocket::build()
         .mount("/", routes![index::index])
         .mount("/", routes![add::add])
         .mount(
             "/static",
-            StaticFiles::from(&env::var("PANTS_STATIC_ROOT").unwrap()),
+            FileServer::from(&env::var("PANTS_STATIC_ROOT").unwrap()),
         )
         .attach(Template::fairing())
-        .launch();
 }

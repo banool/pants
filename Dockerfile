@@ -1,5 +1,5 @@
 # Start with a Rust alpine image.
-FROM rust:1.54-alpine3.14 as build
+FROM rust:1.59-alpine3.15 as build
 
 # Copy in the code.
 WORKDIR /build
@@ -16,7 +16,7 @@ RUN cargo build --release
 RUN strip target/release/pants
 
 # Make a new build stage.
-FROM alpine:3.14
+FROM alpine:3.15
 
 # Copy in the binary from the previous build stage.
 COPY --from=build /build/static static
