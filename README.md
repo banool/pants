@@ -28,26 +28,10 @@ The response should look like this:
 ```
 This is the token you need to set for the `PANTS_ACCESS_TOKEN` env var below
 
-## Running
+## Running locally
+This assumes you have server-setup checked out above this directory.
 ```
-# Ideally this maps to something exposed to the web, so the URLs will be valid, but I don't think Pocket really cares.
-mkdir /var/pages
-cp -r static /var/static
-
-# Set required environment variables
-# Note, these are not the real production keys.
-export PANTS_PAGES_ROOT="/tmp/pantspages"  # Relative paths work too.
-export PANTS_SITE="https://dport.me"
-export PANTS_CONSUMER_KEY="87796-6b548d766433260a0f9b1b97"
-export PANTS_ACCESS_TOKEN="d44c7cc9-2434-de18-332c-923ad5"
-export PANTS_STATIC_ROOT="static"
-
-# Set other Rocket variables if you're interested
-export ROCKET_PORT=8765
-export ROCKET_ADDRESS=0.0.0.0
-
-# Let's go!
-cargo run
+./run.sh
 ```
 
 ## Running with docker
