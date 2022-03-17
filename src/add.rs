@@ -1,7 +1,7 @@
 extern crate serde_json;
 
 use log::{error, info};
-use reqwest::blocking::Client as ReqwestClient;
+use reqwest::Client as ReqwestClient;
 use rocket::form::{Form, FromForm};
 use rocket::response::{Flash, Redirect};
 use std::env;
@@ -20,7 +20,7 @@ pub struct PocketAddForm {
 }
 
 #[post("/add", data = "<form>")]
-pub fn add(form: Form<PocketAddForm>) -> Flash<Redirect> {
+pub async fn add(form: Form<PocketAddForm>) -> Flash<Redirect> {
     assert_eq!(form.title.is_empty(), false);
 
     let title: String = form
@@ -39,7 +39,7 @@ pub fn add(form: Form<PocketAddForm>) -> Flash<Redirect> {
         }
         Ok(()) => {}
     }
-    match add_to_pocket(&form.title, &url, &form.tags) {
+    match add_to_pocket(&form.title, &url, &form.tags).await {
         Err(e) => {
             let s = format!("Could not add to pocket: {}", e);
             error!("{}", s);
@@ -70,7 +70,7 @@ struct PocketPostRequest {
     access_token: String,
 }
 
-fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str> {
+async fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str> {
     let request = PocketPostRequest {
         url: url.to_string(),
         title: title.to_string(),
@@ -84,6 +84,7 @@ fn add_to_pocket(title: &str, url: &str, tags: &str) -> Result<(), &'static str>
         .post("https://getpocket.com/v3/add")
         .json(&request)
         .send()
+        .await
         .unwrap();
     info!("Response from Pocket: {:#?}", response);
     let status = response.status();
